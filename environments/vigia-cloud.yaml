@@ -1,0 +1,15 @@
+# yaml-language-server: $schema=https://platform.claude.com/schemas/ant/beta/environment.json
+# Sandbox en la nube de Anthropic para los agentes del vigía. Red limitada: solo
+# registros de paquetes, código y los servidores MCP que declaren los agentes (GitHub).
+name: vigia-cloud
+config:
+  type: cloud
+  packages:
+    pip:
+      - pillow
+      - numpy
+      - opencv-python-headless
+  networking:
+    type: limited
+    allow_package_managers: true
+    allow_mcp_servers: true

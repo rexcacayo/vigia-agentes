@@ -1,0 +1,36 @@
+# Al fusionar en main: publica en Claude Platform lo que haya cambiado y guarda el lockfile.
+name: Desplegar en Claude Platform
+on:
+  push:
+    branches: [main]
+    paths: ["agents/**", "environments/**", "skills/**"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ant-apply      # nunca dos apply a la vez: el lockfile no se bloquea
+  cancel-in-progress: false
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Instalar ant
+        run: |
+          VERSION=2.6.0
+          curl -fsSL "https://github.com/anthropics/anthropic-cli/releases/download/v${VERSION}/ant_${VERSION}_linux_amd64.tar.gz" \
+            | sudo tar -xz -C /usr/local/bin ant
+      - name: ant apply
+        run: ant apply --yes agents/ environments/
+      - name: Guardar claude-lock.json (aunque el apply falle a medias)
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add claude-lock.json 2>/dev/null || true
+          git diff --cached --quiet || (git commit -m "chore: actualizar claude-lock.json" && git push)

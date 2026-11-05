@@ -1,0 +1,30 @@
+# En cada Pull Request: valida la estructura y muestra el plan de `ant apply` (no cambia nada).
+name: Plan
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validar skills y agentes
+        run: python scripts/validar.py
+      - name: Empaquetado OCI (prueba)
+        run: python scripts/oci_empaquetar.py 0.0.0-pr
+      - name: Instalar ant
+        run: |
+          VERSION=2.6.0
+          curl -fsSL "https://github.com/anthropics/anthropic-cli/releases/download/v${VERSION}/ant_${VERSION}_linux_amd64.tar.gz" \
+            | sudo tar -xz -C /usr/local/bin ant
+      - name: Plan de ant apply
+        if: ${{ env.ANTHROPIC_API_KEY != '' }}
+        run: ant apply --dry-run agents/ environments/

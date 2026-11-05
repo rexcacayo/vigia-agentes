@@ -1,0 +1,45 @@
+# Al crear una etiqueta skills-vX.Y.Z: publica cada skill como artefacto OCI en GHCR
+# (especificación «Agent Skills as OCI Artifacts»).
+name: Publicar skills (OCI)
+on:
+  push:
+    tags: ["skills-v*"]
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  oci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: oras-project/setup-oras@v1
+      - name: Empaquetar
+        run: python scripts/oci_empaquetar.py "${GITHUB_REF_NAME#skills-v}"
+      - name: Publicar en ghcr.io
+        env:
+          VERSION: ${{ github.ref_name }}
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | oras login ghcr.io -u "${{ github.actor }}" --password-stdin
+          V="${VERSION#skills-v}"
+          for d in dist/*/; do
+            n=$(basename "$d")
+            DESC=$(python -c "import json;print(json.load(open('$d/config.json'))['description'][:250])")
+            (cd "$d" && oras push "ghcr.io/${{ github.repository_owner }}/vigia-skills/$n:$V" \
+              --artifact-type application/vnd.agentskills.skill.v1 \
+              --config config.json:application/vnd.agentskills.skill.config.v1+json \
+              skill-content.tar.gz:application/vnd.agentskills.skill.content.v1.tar+gzip \
+              --annotation "org.opencontainers.image.created=$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+              --annotation "org.opencontainers.image.title=$n" \
+              --annotation "org.opencontainers.image.description=$DESC" \
+              --annotation "org.opencontainers.image.version=$V" \
+              --annotation "org.opencontainers.image.revision=${{ github.sha }}" \
+              --annotation "org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}" \
+              --annotation "org.opencontainers.image.licenses=GPL-3.0-only" \
+              --annotation "io.agentskills.skill.name=$n")
+            oras tag "ghcr.io/${{ github.repository_owner }}/vigia-skills/$n:$V" latest
+          done
