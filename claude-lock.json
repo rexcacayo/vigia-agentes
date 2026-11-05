@@ -9,16 +9,16 @@
     "./agents/agente-filamento.md": {
       "kind": "agent",
       "id": "agent_01MGK8hdCpsk6s7wrpW3A5i9",
-      "version": "1",
-      "hash": "6c892f8fe3727e5ccaa35220e3185ecb",
-      "remote_hash": "59aab94a6d29b667c709cb2b02b92d9a"
+      "version": "2",
+      "hash": "9a90a32b8855295184819c164d40cfa1",
+      "remote_hash": "abe32b2809a9acbb2b599ef4f640aa89"
     },
     "./agents/analista-proceso.md": {
       "kind": "agent",
       "id": "agent_0137VBFWBLUUKU1dhyCQUpVG",
-      "version": "2",
-      "hash": "21900ea6eb7aa378558867abc350bb6c",
-      "remote_hash": "4bcf58d052b911b283734eb48bfc55e2"
+      "version": "3",
+      "hash": "54ac9301b9435302a63b6ab33c8e128d",
+      "remote_hash": "339ae5407e29d91a4abab2ecd4687069"
     },
     "./environments/vigia-cloud.yaml": {
       "kind": "environment",
@@ -41,8 +41,8 @@
     "./skills/vigia-3d": {
       "kind": "skill",
       "id": "skill_01A3tNqTkYTUXyesuScP4aHc",
-      "version": "skver_01F8TLBxH6GpzqmGXWWgPR3G",
-      "hash": "556642dabbf6f724a17e8f79b64f93b4"
+      "version": "skver_012YDgjiBzneDphR8iSfPBaQ",
+      "hash": "bc57a2d78ae2d766fb837791e1105e43"
     }
   }
 }
