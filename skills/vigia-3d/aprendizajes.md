@@ -15,3 +15,12 @@ en un parte o aviso y explica por qué.
   realidad eran islas despegadas y arrastradas; diez minutos después era un nido de
   espagueti. En las primeras capas, discos o islas que cambian de sitio entre fotogramas,
   o material fuera de la zona de la pieza, son despegue: `fallo` / `detener`.
+- 2026-10-10 · PETG · litofanía (capas 643, 669, 699, 714): el parte decía «boquilla a
+  255 °C, algo alta» aunque la pieza salía limpia, y el usuario dio 👍 a los cuatro. 255 °C
+  está dentro de la ficha de los PETG conocidos (230–260 °C): no lo menciones como
+  problema salvo que haya pegotes, bolas de hilo o goteo sobre la pieza.
+- 2026-10-10 · general · litofanía (capas 699, 856, 872): en una pieza alta y estable de
+  las últimas capas, el cabezal solo tapaba la línea que se estaba imprimiendo y el resto
+  se veía sin cambios. El usuario dio 👍 al «ok». Eso no obliga a decir `sospecha`. La
+  regla de `sospecha` sigue valiendo cuando lo que no se distingue es una zona de detalle
+  o de riesgo (islas, voladizos, primeras capas).
