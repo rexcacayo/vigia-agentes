@@ -16,9 +16,9 @@
     "./agents/analista-proceso.md": {
       "kind": "agent",
       "id": "agent_0137VBFWBLUUKU1dhyCQUpVG",
-      "version": "1",
-      "hash": "b39dd04bc28900460d49d9f331ae90fe",
-      "remote_hash": "ec5948de6deaffa9cfd5b50adc7cd773"
+      "version": "2",
+      "hash": "21900ea6eb7aa378558867abc350bb6c",
+      "remote_hash": "4bcf58d052b911b283734eb48bfc55e2"
     },
     "./environments/vigia-cloud.yaml": {
       "kind": "environment",
