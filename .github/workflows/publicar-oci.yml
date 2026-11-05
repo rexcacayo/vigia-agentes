@@ -1,9 +1,14 @@
-# Al crear una etiqueta skills-vX.Y.Z: publica cada skill como artefacto OCI en GHCR
-# (especificación «Agent Skills as OCI Artifacts»).
+# Publica cada skill como artefacto OCI en GHCR (especificación «Agent Skills as OCI Artifacts»).
+# - Al fusionar en main un cambio en skills/: versión 0.1.<nº de ejecución> + etiqueta latest.
+# - Con una etiqueta skills-vX.Y.Z: esa versión + latest.
+# El vigía instala «latest» por digest (ver skills.json en vigia_3d).
 name: Publicar skills (OCI)
 on:
   push:
+    branches: [main]
+    paths: ["skills/**"]
     tags: ["skills-v*"]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -18,14 +23,15 @@ jobs:
         with:
           python-version: "3.12"
       - uses: oras-project/setup-oras@v1
+      - name: Versión
+        run: |
+          if [[ "$GITHUB_REF" == refs/tags/skills-v* ]]; then V="${GITHUB_REF_NAME#skills-v}"; else V="0.1.${GITHUB_RUN_NUMBER}"; fi
+          echo "V=$V" >> "$GITHUB_ENV"
       - name: Empaquetar
-        run: python scripts/oci_empaquetar.py "${GITHUB_REF_NAME#skills-v}"
+        run: python scripts/oci_empaquetar.py "$V"
       - name: Publicar en ghcr.io
-        env:
-          VERSION: ${{ github.ref_name }}
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | oras login ghcr.io -u "${{ github.actor }}" --password-stdin
-          V="${VERSION#skills-v}"
           for d in dist/*/; do
             n=$(basename "$d")
             DESC=$(python -c "import json;print(json.load(open('$d/config.json'))['description'][:250])")

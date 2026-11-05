@@ -69,7 +69,7 @@ flowchart LR
 |---|---|
 | Cambiar el criterio de un agente | Edito `agents/*.md` → PR (la CI muestra el plan) → fusiono |
 | Mejorar una skill | Edito `skills/<skill>/` → PR → fusiono (nueva versión en la plataforma) |
-| Publicar las skills como OCI | `git tag skills-v1.0.0 && git push --tags` |
+| Publicar las skills como OCI | Automático al fusionar cambios en `skills/` (versión `0.1.N` + `latest`); para una versión con nombre, `git tag skills-v1.0.0 && git push --tags` |
 | Revisar lo que aprendió el analista | PRs `aprendizaje/*` y `fichas/*` |
 | Añadir una impresora nueva | Adaptador en `vigia_3d` + sección en `skills/impresoras-3d/SKILL.md` |
 
