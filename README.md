@@ -47,6 +47,16 @@ flowchart LR
   de la impresora y reaccionar en segundos.
 - El análisis profundo y el mantenimiento del conocimiento viven en la plataforma.
 - **El aprendizaje entra siempre por PR**: los agentes proponen, tú apruebas.
+- **Una sola fuente de verdad**: el vigía instala estas skills desde GHCR por digest al
+  arrancar y al empezar cada impresión (`skills.json` en `vigia_3d`). Lo que aprende entre
+  publicaciones va a una capa local que el analista sube aquí por PR; al publicarse, la
+  capa local lo reconoce y deja de duplicarlo.
+
+```
+👎 / informe ──► capa local del vigía ──► analista (PR) ──► fusionas ──► CI publica OCI
+      ▲                                                                       │
+      └─────────────── el vigía instala la nueva versión por digest ◄─────────┘
+```
 
 ## Puesta en marcha (una vez)
 

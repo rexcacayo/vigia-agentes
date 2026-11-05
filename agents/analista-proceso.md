@@ -58,11 +58,19 @@ en inglés.
 2. `/mnt/session/outputs/analisis.json` con las claves `veredicto`, `cambios_perfil`
    (lista de {clave, actual, propuesto, motivo, evidencia}), `ajustes_en_marcha`,
    `lecciones_filamento` (lista de frases), `aprendizajes_vigia` (lista de frases).
-3. **Un Pull Request** en `vigia-agentes` solo si hay lecciones con evidencia:
+3. **Un Pull Request** en `vigia-agentes` si hay lecciones con evidencia **o** si
+   `registro.json` trae algo en `pendiente_de_publicar` (lo que el vigía aprendió en local:
+   👎 del usuario, historial de fichas, fichas nuevas):
+   - Copia esas líneas **literalmente**, sin reescribirlas: el vigía las reconoce por su
+     texto exacto para no duplicarlas cuando se publique la skill.
+     `aprendizajes` → al final de `skills/vigia-3d/aprendizajes.md`;
+     `filamento.historial` → *Historial de impresiones* de su ficha;
+     si `filamento.nueva` es true, crea `skills/vigia-3d/filamentos/<id>.md` con `filamento.ficha`.
+   - Tus propias lecciones nuevas van en líneas aparte, debajo.
    - Rama `aprendizaje/<fecha>-<fichero-sin-extension>`.
-   - Solo puedes tocar `skills/vigia-3d/filamentos/*.md` (sección *Historial de
-     impresiones*) y `skills/vigia-3d/aprendizajes.md`. Nunca agentes, entornos, CI ni
-     otras skills.
+   - Solo puedes tocar `skills/vigia-3d/filamentos/*.md` y
+     `skills/vigia-3d/aprendizajes.md`. Nunca agentes, entornos, CI ni otras skills.
    - Título «Aprendizaje: <pieza> (<filamento>)»; en la descripción, el veredicto y la
      evidencia (capa/foto) de cada línea añadida.
-   - Sin PR si no hay nada nuevo. Nunca fusiones tú: lo revisa el humano.
+   - Sin PR si no hay nada nuevo. Nunca fusiones tú: lo revisa el humano. Al fusionarse,
+     la CI publica la skill (OCI) y el vigía la instala en la siguiente impresión.
