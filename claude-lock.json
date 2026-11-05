@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "origin": {
+    "base_url": "https://api.anthropic.com",
+    "organization_id": "f6c8cf36-f118-454f-9439-baf01eee4300",
+    "workspace_id": "wrkspc_01WtxMgKwa3N1gh6qpTgDhsA"
+  },
+  "resources": {
+    "./agents/agente-filamento.md": {
+      "kind": "agent",
+      "id": "agent_01MGK8hdCpsk6s7wrpW3A5i9",
+      "version": "1",
+      "hash": "6c892f8fe3727e5ccaa35220e3185ecb",
+      "remote_hash": "59aab94a6d29b667c709cb2b02b92d9a"
+    },
+    "./agents/analista-proceso.md": {
+      "kind": "agent",
+      "id": "agent_0137VBFWBLUUKU1dhyCQUpVG",
+      "version": "1",
+      "hash": "b39dd04bc28900460d49d9f331ae90fe",
+      "remote_hash": "ec5948de6deaffa9cfd5b50adc7cd773"
+    },
+    "./environments/vigia-cloud.yaml": {
+      "kind": "environment",
+      "id": "env_01Q5K5BamZwkvmNZwyXXKcn8",
+      "hash": "238e8df5250b55557b4d8b6ace9d3e29",
+      "remote_hash": "ed2ef72633a4bf9fac4de0ac6b592baf"
+    },
+    "./skills/ad5m-slicer-engineer": {
+      "kind": "skill",
+      "id": "skill_01UM1TPjYLuWw9VLcYXYr5zj",
+      "version": "skver_01Nzdgh4GsRDvooJCxzSiQY2",
+      "hash": "1d9f800ad5dcbf35c5ecff3bf43d1bd0"
+    },
+    "./skills/impresoras-3d": {
+      "kind": "skill",
+      "id": "skill_01AnzfDevRLgNwDmG4zNtVry",
+      "version": "skver_01Mhxp76stjNWsgvyQCLmaFs",
+      "hash": "09de9a1987e9f4d1274d1da6c4e15c52"
+    },
+    "./skills/vigia-3d": {
+      "kind": "skill",
+      "id": "skill_01A3tNqTkYTUXyesuScP4aHc",
+      "version": "skver_01F8TLBxH6GpzqmGXWWgPR3G",
+      "hash": "556642dabbf6f724a17e8f79b64f93b4"
+    }
+  }
+}
